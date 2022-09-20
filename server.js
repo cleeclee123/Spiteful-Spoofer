@@ -1,4 +1,5 @@
 const express = require("express");
+const spoofer = require("spoofer");
 
 const APP = express();
 const PORT = process.env.PORT || 8080;
@@ -12,6 +13,12 @@ APP.use((request, response, next) => {
 // api entry endpoint : "Hello, World!"
 APP.get("/", (request, response) => {
   response.send("Hello, World!");
+});
+
+// basic spoofer api route  
+APP.get("/genrequestheader", async (request, response) => {
+  const requestHeader = await spoofer.buildRequestHeader();
+  response.send(requestHeader);
 });
 
 // route error handling: route doesn't exist
